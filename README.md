@@ -49,14 +49,14 @@ Em seguida, instale o pacote "Zabbix Agent 4" em sua caixa pfSense
 Em Recursos Avançados-> Parâmetros do Usuário
 
 ```bash
-AllowRoot = 1
-UserParameter = pfsense.states.max, grep "estados limite" /tmp/rules.limits | cut -f4 -d ''
-UserParameter = pfsense.states.current, grep "entradas atuais" / tmp / pfctl_si_out | tr -s '' | cut -f4 -d ''
-UserParameter = pfsense.mbuf.current, netstat -m | grep "clusters mbuf" | cut -f1 -d '' | cut -d '/' -f1
-UserParameter = pfsense.mbuf.cache, netstat -m | grep "clusters mbuf" | cut -f1 -d '' | cut -d '/' -f2
-UserParameter = pfsense.mbuf.max, netstat -m | grep "clusters mbuf" | cut -f1 -d '' | cut -d '/' -f4
-UserParameter = pfsense.discovery [*], / usr / local / bin / php /root/scripts/pfsense_zbx.php discovery $ 1
-UserParameter = pfsense.value [*], / usr / local / bin / php /root/scripts/pfsense_zbx.php $ 1 $ 2 $ 3
+AllowRoot=1
+UserParameter=pfsense.states.max,grep "limit states" /tmp/rules.limits | cut -f4 -d ' '
+UserParameter=pfsense.states.current,grep "current entries" /tmp/pfctl_si_out | tr -s ' ' | cut -f4 -d ' '
+UserParameter=pfsense.mbuf.current,netstat -m | grep "mbuf clusters" | cut -f1 -d ' ' | cut -d '/' -f1
+UserParameter=pfsense.mbuf.cache,netstat -m | grep "mbuf clusters" | cut -f1 -d ' ' | cut -d '/' -f2
+UserParameter=pfsense.mbuf.max,netstat -m | grep "mbuf clusters" | cut -f1 -d ' ' | cut -d '/' -f4
+UserParameter=pfsense.discovery[*],/usr/local/bin/php /root/scripts/pfsense_zbx.php discovery $1
+UserParameter=pfsense.value[*],/usr/local/bin/php /root/scripts/pfsense_zbx.php $1 $2 $3
 ```
 
 _Por favor, note que a opção ** AllowRoot = 1 ** é necessária para executar corretamente as verificações do OpenVPN e outros._
