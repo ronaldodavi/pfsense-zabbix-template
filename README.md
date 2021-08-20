@@ -40,7 +40,7 @@ Primeiro copie o arquivo pfsense_zbx.php para sua caixa pfsense (por exemplo, pa
 Em ** Diagnostics/Command Prompt **, insira esta linha:
 
 ```bash
-curl --create-dirs -o /root/scripts/pfsense_zbx.php https://raw.githubusercontent.com/ronaldodavi/pfsense-zabbix-template/main/pfsense_zbx.php
+curl --create-dirs -o /root/scripts/pfsense_zbx.php https://raw.githubusercontent.com/ronaldodavi/pfsense-zabbix-template/master/pfsense_zbx.php
 ```
 
 Em seguida, instale o pacote "Zabbix Agent 4" em sua caixa pfSense
