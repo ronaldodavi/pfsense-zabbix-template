@@ -35,20 +35,20 @@ Testado com pfSense 2.4.x, Zabbix 4.0, Zabbix 5.0
 
 ## Configuração
 
-Primeiro copie o arquivo pfsense_zbx.php para sua caixa pfsense (por exemplo, para / root / scripts).
+Primeiro copie o arquivo pfsense_zbx.php para sua caixa pfsense (por exemplo, para /root/scripts).
 
-Em ** Diagnostics / Command Prompt **, insira esta linha:
+Em ** Diagnostics/Command Prompt **, insira esta linha:
 
-`` `bash
-curl --create-dirs -o /root/scripts/pfsense_zbx.php https://raw.githubusercontent.com/rbicelli/pfsense-zabbix-template/master/pfsense_zbx.php
-`` `
+```bash
+curl --create-dirs -o /root/scripts/pfsense_zbx.php https://raw.githubusercontent.com/ronaldodavi/pfsense-zabbix-template/main/pfsense_zbx.php
+```
 
 Em seguida, instale o pacote "Zabbix Agent 4" em sua caixa pfSense
 
 
 Em Recursos Avançados-> Parâmetros do Usuário
 
-`` `bash
+```bash
 AllowRoot = 1
 UserParameter = pfsense.states.max, grep "estados limite" /tmp/rules.limits | cut -f4 -d ''
 UserParameter = pfsense.states.current, grep "entradas atuais" / tmp / pfctl_si_out | tr -s '' | cut -f4 -d ''
@@ -57,7 +57,7 @@ UserParameter = pfsense.mbuf.cache, netstat -m | grep "clusters mbuf" | cut -f1 
 UserParameter = pfsense.mbuf.max, netstat -m | grep "clusters mbuf" | cut -f1 -d '' | cut -d '/' -f4
 UserParameter = pfsense.discovery [*], / usr / local / bin / php /root/scripts/pfsense_zbx.php discovery $ 1
 UserParameter = pfsense.value [*], / usr / local / bin / php /root/scripts/pfsense_zbx.php $ 1 $ 2 $ 3
-`` `
+```
 
 _Por favor, note que a opção ** AllowRoot = 1 ** é necessária para executar corretamente as verificações do OpenVPN e outros._
 
@@ -83,29 +83,29 @@ Para executar speedtests em interfaces WAN, você deve instalar o pacote speedte
 
 Em ** Diagnostics / Command Prompt ** insira estes comandos:
 
-`` `bash
+```bash
 pkg update && pkg install -y py37-speedtest-cli
 `` `
 
 O pacote python do Speedtest pode estar quebrado no momento, então você pode precisar de uma etapa extra: baixe a versão mais recente do repositório github do autor do pacote.
 
-`` `bash
+```bash
 curl -Lo /usr/local/lib/python3.7/site-packages/speedtest.py https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py
 `` `
 
 Para testar se o speedtest está instalado corretamente, você pode tentar:
 
-`` `bash
-/ usr / local / bin / speedtest
-`` `
+```bash
+/usr/local/bin/speedtest
+```
 
 Lembre-se de que você precisará instalar o pacote em * cada * atualização do pfSense.
 
-O modelo Speedtest cria um cron job e verifica a entrada toda vez que o Zabbix solicita seus itens. Se você deseja desinstalar os cron jobs, basta executar em ** Diagnostics / Command Prompt **:
+O modelo Speedtest cria um cron job e verifica a entrada toda vez que o Zabbix solicita seus itens. Se você deseja desinstalar os cron jobs, basta executar em ** Diagnostics/Command Prompt **:
 
-`` `bash
-/ url / local / bin / php /root/scripts/pfsense_zbx.php cron_cleanup
-`` `
+```bash
+/url/local/bin/php/root/scripts/pfsense_zbx.php cron_cleanup
+```
 
 ## Credits
 
