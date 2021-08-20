@@ -103,7 +103,7 @@ Em ** Diagnostics/Edit file clicar em browser e seguir o caminho para alterar o 
 
 ```bash
 /usr/local/lib/
-```bash
+```
 
 Para testar se o speedtest está instalado corretamente, você pode tentar:
 
