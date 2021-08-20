@@ -106,6 +106,6 @@ O modelo Speedtest cria um cron job e verifica a entrada toda vez que o Zabbix s
 
 ## Credits
 
-[Ricardo Zabbix Template] https://github.com/rbicelli/pfsense-zabbix-template
+[Ricardo Zabbix Template] (https://github.com/rbicelli/pfsense-zabbix-template) Original Pfsense zabbix template
 
 [Keenton Zabbix Template](https://github.com/keentonsas/zabbix-template-pfsense) for Zabbix Agent freeBSD part.
