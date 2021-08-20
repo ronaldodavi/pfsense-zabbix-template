@@ -65,7 +65,7 @@ Aumente também o valor de ** Tempo limite ** pelo menos para ** 5 **, caso cont
 
 Em seguida, importe os modelos xml no Zabbix e adicione seus hosts pfSense.
 
-Se você estiver executando uma configuração CARP redundante, deve ajustar a macro {$ EXPECTED_CARP_STATUS} para um valor que representa o que é o status esperado do CARP na caixa monitorada.
+Se você estiver executando uma configuração CARP redundante, deve ajustar a macro {$EXPECTED_CARP_STATUS} para um valor que representa o que é o status esperado do CARP na caixa monitorada.
 
 Os valores possíveis são:
 
@@ -75,16 +75,13 @@ Os valores possíveis são:
 
 Isso é útil ao monitorar serviços que poderiam permanecer interrompidos no membro reserva do CARP.
 
-
 ## Setup Speedtest
-
 Para executar speedtests em interfaces WAN, você deve instalar o pacote speedtest.
 
-
-Em ** Diagnostics / Command Prompt ** insira estes comandos:
+Em ** Diagnostics/Command Prompt ** insira estes comandos:
 
 ```bash
-pkg update && pkg install -y py37-speedtest-cli
+pkg update && pkg install -y py38-speedtest-cli-2.1.3
 `` `
 
 O pacote python do Speedtest pode estar quebrado no momento, então você pode precisar de uma etapa extra: baixe a versão mais recente do repositório github do autor do pacote.
