@@ -9,18 +9,18 @@ Testado com pfSense 2.4.x, Zabbix 4.0, Zabbix 5.0
 ** PfSense Active Template **
  
  - Detecção e monitoramento de interface de rede com nomes atribuídos pelo usuário
- - Detecção e monitoramento do gateway (Status do gateway / RTT)
- - Detecção e monitoramento do servidor OpenVPN (status do servidor / status do túnel)
- - Detecção e monitoramento de clientes OpenVPN (status do cliente / status do túnel)
+ - Detecção e monitoramento do gateway (Status do gateway/RTT)
+ - Detecção e monitoramento do servidor OpenVPN (status do servidor/status do túnel)
+ - Detecção e monitoramento de clientes OpenVPN (status do cliente/status do túnel)
  - Monitoramento CARP (Estado CARP Global)
  - Descoberta e monitoramento de serviço básico (status do serviço)
- - Versão pfSense / atualização disponível
+ - Versão pfSense/atualização disponível
  - Pacotes de atualização disponíveis
  
 ** PfSense Active Template: OpenVPN Server User Auth **
 
  - Descoberta de clientes OpenVPN conectados a servidores OpenVPN no modo de autenticação do usuário
- - Monitoramento dos Parâmetros do Cliente (Bytes enviados / recebidos, Tempo de Conexão ...)
+ - Monitoramento dos Parâmetros do Cliente (Bytes enviados/recebidos, Tempo de Conexão ...)
 
 ** Modelo ativo pfSense: IPsec **
 
