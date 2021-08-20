@@ -84,7 +84,8 @@ Em ** Diagnostics/Command Prompt ** insira estes comandos:
 pkg update && pkg install -y py38-speedtest-cli-2.1.3
 ```
 
-Pode ser necessario procurar o pacote speedtest correto para isso 
+Pode ser necessario procurar o pacote speedtest correto para isso.
+
 Em ** Diagnostics/Command Prompt ** insira estes comandos:
 
 ```bash
@@ -97,8 +98,12 @@ O pacote python do Speedtest pode estar quebrado no momento, então você pode p
 curl -Lo /usr/local/lib/python3.8/site-packages/speedtest.py https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py
 ```
 
-Caso o python nao seja o mesmo vai dar um erro então devera ir em:
+Se houver erro no comando acima então devera ir.
+Em ** Diagnostics/Edit file clicar em browser e seguir o caminho para alterar o comando acima para a pasta correta.
 
+```bash
+/usr/local/lib/
+```bash
 
 Para testar se o speedtest está instalado corretamente, você pode tentar:
 
