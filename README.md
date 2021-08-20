@@ -1,114 +1,111 @@
-[![Buy Me A Coffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/rbicelli)
+# pfSense Modelo Zabbix
 
-# pfSense Zabbix Template
+Este é um template ativo pfSense para Zabbix, baseado no Agente Padrão e um script php usando a biblioteca de funções pfSense para monitorar dados específicos.
 
-This is a pfSense active template for Zabbix, based on Standard Agent and a php script using pfSense functions library for monitoring specific data.
+Testado com pfSense 2.4.x, Zabbix 4.0, Zabbix 5.0
 
+## O que faz
 
-Tested with pfSense 2.4.x, Zabbix 4.0, Zabbix 5.0
-
-## What it does
-
-**Template pfSense Active**
+** PfSense Active Template **
  
- - Network interface Discovery and Monitoring with User Assigned Names
- - Gateway Discovery and Monitoring (Gateway Status/RTT) 
- - OpenVPN Server Discovery and Monitoring (Server Status/Tunnel Status)
- - OpenVPN Clients Discovery and Monitoring (Client Status/Tunnel Status)
- - CARP Monitoring (Global CARP State)
- - Basic Service Discovery and Monitoring (Service Status)
- - pfSense Version/Update Available
- - Packages Update Available
+ - Detecção e monitoramento de interface de rede com nomes atribuídos pelo usuário
+ - Detecção e monitoramento do gateway (Status do gateway / RTT)
+ - Detecção e monitoramento do servidor OpenVPN (status do servidor / status do túnel)
+ - Detecção e monitoramento de clientes OpenVPN (status do cliente / status do túnel)
+ - Monitoramento CARP (Estado CARP Global)
+ - Descoberta e monitoramento de serviço básico (status do serviço)
+ - Versão pfSense / atualização disponível
+ - Pacotes de atualização disponíveis
  
-**Template pfSense Active: OpenVPN Server User Auth**
+** PfSense Active Template: OpenVPN Server User Auth **
 
- - Discovery of OpenVPN Clients connected to OpenVPN Servers in user auth mode
- - Monitoring of Client Parameters (Bytes sent/received, Connection Time...) 
+ - Descoberta de clientes OpenVPN conectados a servidores OpenVPN no modo de autenticação do usuário
+ - Monitoramento dos Parâmetros do Cliente (Bytes enviados / recebidos, Tempo de Conexão ...)
 
-**Template pfSense Active: IPsec**
+** Modelo ativo pfSense: IPsec **
 
- - Discovery of IPsec Site-to-Site tunnels
- - Monitoring tunnel status (Phase 1 and Phase 2)
+ -Descoberta de túneis IPsec site a site
+ - Monitorar o status do túnel (Fase 1 e Fase 2)
  
-**Template pfSense Active: Speedtest**
+** PfSense Active Template: Speedtest **
 
- - Discovery of WAN Interfaces
- - Perform speed tests and collect metrics
+ - Descoberta de interfaces WAN
+ - Realizar testes de velocidade e coletar métricas
 
 
-## Configuration
+## Configuração
 
-First copy the file pfsense_zbx.php to your pfsense box (e.g. to /root/scripts).
+Primeiro copie o arquivo pfsense_zbx.php para sua caixa pfsense (por exemplo, para / root / scripts).
 
-From **Diagnostics/Command Prompt** input this one-liner:
+Em ** Diagnostics / Command Prompt **, insira esta linha:
 
-```bash
+`` `bash
 curl --create-dirs -o /root/scripts/pfsense_zbx.php https://raw.githubusercontent.com/rbicelli/pfsense-zabbix-template/master/pfsense_zbx.php
-```
+`` `
 
-Then install package "Zabbix Agent 4" on your pfSense Box
+Em seguida, instale o pacote "Zabbix Agent 4" em sua caixa pfSense
 
 
-In Advanced Features-> User Parameters
+Em Recursos Avançados-> Parâmetros do Usuário
 
-```bash
-AllowRoot=1
-UserParameter=pfsense.states.max,grep "limit states" /tmp/rules.limits | cut -f4 -d ' '
-UserParameter=pfsense.states.current,grep "current entries" /tmp/pfctl_si_out | tr -s ' ' | cut -f4 -d ' '
-UserParameter=pfsense.mbuf.current,netstat -m | grep "mbuf clusters" | cut -f1 -d ' ' | cut -d '/' -f1
-UserParameter=pfsense.mbuf.cache,netstat -m | grep "mbuf clusters" | cut -f1 -d ' ' | cut -d '/' -f2
-UserParameter=pfsense.mbuf.max,netstat -m | grep "mbuf clusters" | cut -f1 -d ' ' | cut -d '/' -f4
-UserParameter=pfsense.discovery[*],/usr/local/bin/php /root/scripts/pfsense_zbx.php discovery $1
-UserParameter=pfsense.value[*],/usr/local/bin/php /root/scripts/pfsense_zbx.php $1 $2 $3
-```
+`` `bash
+AllowRoot = 1
+UserParameter = pfsense.states.max, grep "estados limite" /tmp/rules.limits | cut -f4 -d ''
+UserParameter = pfsense.states.current, grep "entradas atuais" / tmp / pfctl_si_out | tr -s '' | cut -f4 -d ''
+UserParameter = pfsense.mbuf.current, netstat -m | grep "clusters mbuf" | cut -f1 -d '' | cut -d '/' -f1
+UserParameter = pfsense.mbuf.cache, netstat -m | grep "clusters mbuf" | cut -f1 -d '' | cut -d '/' -f2
+UserParameter = pfsense.mbuf.max, netstat -m | grep "clusters mbuf" | cut -f1 -d '' | cut -d '/' -f4
+UserParameter = pfsense.discovery [*], / usr / local / bin / php /root/scripts/pfsense_zbx.php discovery $ 1
+UserParameter = pfsense.value [*], / usr / local / bin / php /root/scripts/pfsense_zbx.php $ 1 $ 2 $ 3
+`` `
 
-_Please note that **AllowRoot=1** option is required in order to correctly execute OpenVPN checks and others._
+_Por favor, note que a opção ** AllowRoot = 1 ** é necessária para executar corretamente as verificações do OpenVPN e outros._
 
-Also increase the **Timeout** value at least to **5**, otherwise some checks will fail.
+Aumente também o valor de ** Tempo limite ** pelo menos para ** 5 **, caso contrário, algumas verificações falharão.
 
-Then import xml templates in Zabbix and add your pfSense hosts.
+Em seguida, importe os modelos xml no Zabbix e adicione seus hosts pfSense.
 
-If you are running a redundant CARP setup you should adjust the macro {$EXPECTED_CARP_STATUS} to a value representing what is CARP expected status on monitored box.
+Se você estiver executando uma configuração CARP redundante, deve ajustar a macro {$ EXPECTED_CARP_STATUS} para um valor que representa o que é o status esperado do CARP na caixa monitorada.
 
-Possible values are:
+Os valores possíveis são:
 
- - 0: Disabled
- - 1: Master
+ - 0: Desativado
+ - 1: Mestre
  - 2: Backup
 
-This is useful when monitoring services which could stay stopped on CARP Backup Member.
+Isso é útil ao monitorar serviços que poderiam permanecer interrompidos no membro reserva do CARP.
 
 
 ## Setup Speedtest
 
-For running speedtests on WAN interfaces you have to install the speedtest package.
+Para executar speedtests em interfaces WAN, você deve instalar o pacote speedtest.
 
 
-From **Diagnostics/Command Prompt** input this commands:
+Em ** Diagnostics / Command Prompt ** insira estes comandos:
 
-```bash
+`` `bash
 pkg update && pkg install -y py37-speedtest-cli
-```
+`` `
 
-Speedtest python package could be broken at the moment, so you could need an extra step: download the latest version from package author's github repo.
+O pacote python do Speedtest pode estar quebrado no momento, então você pode precisar de uma etapa extra: baixe a versão mais recente do repositório github do autor do pacote.
 
-```bash
+`` `bash
 curl -Lo /usr/local/lib/python3.7/site-packages/speedtest.py https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py
-```
+`` `
 
-For testing if speedtest is installed properly you can try it:
+Para testar se o speedtest está instalado corretamente, você pode tentar:
 
-```bash
-/usr/local/bin/speedtest
-```
+`` `bash
+/ usr / local / bin / speedtest
+`` `
 
-Remember that you will need to install the package on *every* pfSense upgrade.
+Lembre-se de que você precisará instalar o pacote em * cada * atualização do pfSense.
 
-Speedtest template creates a cron job and check for entry everytime Zabbix requests its items. If you  want to uninstall the cron jobs simply run, from **Diagnostics/Command Prompt**:
+O modelo Speedtest cria um cron job e verifica a entrada toda vez que o Zabbix solicita seus itens. Se você deseja desinstalar os cron jobs, basta executar em ** Diagnostics / Command Prompt **:
 
-```bash
-/url/local/bin/php /root/scripts/pfsense_zbx.php cron_cleanup
-```
+`` `bash
+/ url / local / bin / php /root/scripts/pfsense_zbx.php cron_cleanup
+`` `
 
 ## Credits
 
